@@ -21,13 +21,10 @@
             "script": "start"
         },
         {
-            "type": "typescript",
+            "label": "Build TypeScript",
             "identifier": "build-typescript",
-            "tsconfig": "${workspaceFolderBasename}\\src\\tsconfig.json",
-            "option": "watch",
-            "problemMatcher": [
-                "$tsc-watch"
-            ]
+            "type": "npm",
+            "script": "build-ts"
         }
     ]
 }
