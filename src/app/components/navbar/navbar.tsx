@@ -22,20 +22,16 @@ export class NavBar<IDTYPE=string> extends React.Component<NavBarProps<IDTYPE>, 
             disabledIDs = [],
         } = this.props;
 
-        let rItems = items.map(i => (
-            <div key={ i[2] as any }>
-                <div className={ i[1] } />
+        let rItems = items.map(item => (
+            <div key={ item[2] as any } onClick={ (e) => onChange(item[2]) }>
+                <div className={ item[1] } />
                 <div
-                    className={
-                        `NavBarItem${
-                        i[2] === currentItem ? " Selected" : ""
-                        }${
-                        disabledIDs.indexOf(i[2]) > -1 ? " Disabled" : ""
-                        }`
+                    className={ 'NavBarItem' +
+                        (item[2] === currentItem ? " Selected" : "") +
+                        (disabledIDs.indexOf(item[2]) > -1 ? " Disabled" : "")
                     }
-                    onClick={ (e) => onChange(i[2]) }
                 >
-                    <p>{ i[0] }</p>
+                    <p>{ item[0] }</p>
                 </div>
             </div >
         ));

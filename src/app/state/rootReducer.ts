@@ -1,18 +1,23 @@
 import { Action, Reducer } from 'redux';
 import uuid from 'uuid';
-import { } from './actions/ui-actions';
 import { WorkoutActionTypes, UserJoinGroupAct, UserLeaveGroupAct, AddWorkoutGroupAct, EditWorkoutGroupAct, RemWorkoutGroupAct, AddWorkoutItemAct, EditWorkoutItemAct, RemWorkoutItemAct, EditWorkoutSetsAct } from './actions/workout-actions';
+import { } from './actions/ui-actions';
+import { Match_WorkRes, X_Match_WorkRes, X_Match_Workout, Match_Workout, WSIsOwned } from '../util/util';
 
 export interface AppState 
 {
+    core: { currentUserID: string, },
     ui: {}
     users: WorkUser[];
     groups: WorkGroup[];
-    workouts: WorkoutData[];
+    workouts: Workout[];
     worksets: WorkSet[];
 }
 
 export default <Reducer<AppState, Action<string>>> function RootReducer (state = {
+    core: {
+        currentUserID: null,
+    },
     ui: {},
     users: [],
     groups: [],
@@ -36,14 +41,14 @@ export default <Reducer<AppState, Action<string>>> function RootReducer (state =
             {
                 let { groupID, userID } = act as UserLeaveGroupAct;
                 return Object.assign({}, state, {
-                    worksets: state.worksets.filter(ws => (ws.groupID !== groupID && ws.userID !== userID))
+                    worksets: state.worksets.filter(ws => !WSIsOwned(ws, groupID, userID))
                 } as AppState);
             }
         case WorkoutActionTypes.ADD_WORKOUT_GROUP:
             {
                 let { ownerID, groupID, name } = act as AddWorkoutGroupAct;
                 return Object.assign({}, state, {
-                    groups: [...state.groups, { _id: groupID, name, ownerID }]
+                    groups: [...state.groups, new WorkGroup(groupID, ownerID, name)]
                 } as AppState);
             }
         case WorkoutActionTypes.EDIT_WORKOUT_GROUP:
@@ -65,34 +70,44 @@ export default <Reducer<AppState, Action<string>>> function RootReducer (state =
                 let { groupID, workoutID, name, type } = act as AddWorkoutItemAct;
                 return Object.assign({}, state, {
                     workouts: [...state.workouts, { _id: workoutID, groupID, name, type, }],
-                    worksets: [...state.worksets, ...state.users.filter(u => u.mainGroup === groupID).map(u => ({
-                        _id: uuid.v4(),
-                        groupID,
-                        workoutID,
-                        userID: u._id,
-                        weight: 0,
-                        rep: 0,
-                        set: 0,
-                        date_completed: 0,
-                        completed: false,
-                        note: ""
-                    } as WorkSet))],
+                    worksets: [
+                        ...state.worksets,
+                        ...state.users
+                            .filter(u => (u.mainGroup === groupID))
+                            .map(u => (new WorkSet(uuid.v4(), groupID, workoutID, u._id)))],
                 } as AppState);
             }
         case WorkoutActionTypes.EDIT_WORKOUT:
             {
                 let { groupID, workoutID, edits } = act as EditWorkoutItemAct;
-                return Object.assign({}, state, {} as AppState);
+                return Object.assign({}, state, {
+                    workouts: [...state.workouts.filter(w => X_Match_Workout(w, groupID, workoutID)),
+                    {
+                        ...state.workouts.find(w => Match_Workout(w, groupID, workoutID)),
+                        ...edits,
+                    }
+                    ]
+                } as AppState);
             }
         case WorkoutActionTypes.REM_WORKOUT:
             {
                 let { groupID, workoutID } = act as RemWorkoutItemAct;
-                return Object.assign({}, state, {} as AppState);
+                return Object.assign({}, state, {
+                    workouts: state.workouts.filter(w => X_Match_Workout(w, groupID, workoutID))
+                } as AppState);
             }
         case WorkoutActionTypes.EDIT_WORKOUT_SETS:
             {
                 let { groupID, workoutID, userID, edits } = act as EditWorkoutSetsAct;
-                return Object.assign({}, state, {} as AppState);
+                return Object.assign({}, state, {
+                    worksets: [
+                        ...state.worksets.filter(ws => X_Match_WorkRes(ws, groupID, workoutID, userID)),
+                        {
+                            ...state.worksets.find(ws => Match_WorkRes(ws, groupID, workoutID, userID)),
+                            ...edits
+                        }
+                    ]
+                } as AppState);
             }
 
         default:
@@ -101,11 +116,13 @@ export default <Reducer<AppState, Action<string>>> function RootReducer (state =
 }
 
 
-export interface WorkGroup 
+export class WorkGroup 
 {
-    _id: string;
-    ownerID: string;
-    name: string;
+    constructor (
+        public _id: string,
+        public ownerID: string,
+        public name: string,
+    ) { }
 }
 
 export interface WorkUser 
@@ -118,25 +135,29 @@ export interface WorkUser
 
 }
 
-export interface WorkoutData 
+export class Workout 
 {
-    _id: string;
-    groupID: string;
-
-    type: string;
-    name: string;
+    constructor (
+        public _id: string,
+        public groupID: string,
+        public type: string,
+        public name: string,
+    ) { }
 }
 
-export interface WorkSet 
+export class WorkSet 
 {
-    _id: string;
-    groupID: string,
-    workoutID: string,
-    userID: string,
-    weight: number,
-    rep: number,
-    set: number,
-    completed: boolean,
-    date_completed: number,
-    note: string
+    constructor (
+        public _id: string,
+        public groupID: string,
+        public workoutID: string,
+        public userID: string,
+    ) { }
+
+    public weight: number = 0;
+    public rep: number = 0;
+    public set: number = 0;
+    public completed: boolean = false;
+    public date_completed: number = 0;
+    public note: string = "";
 }
