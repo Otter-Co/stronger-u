@@ -1,20 +1,52 @@
 import { Action } from 'redux';
 
-export const ADD_WORKOUT_GROUP = "workout-add-group";
-export type AddWorkoutGroup = Action<string> & { name: string };
-export const addWorkoutGroup = (name: string): AddWorkoutGroup => ({ type: ADD_WORKOUT_GROUP, name });
+export const enum WorkoutActionTypes 
+{
+    USER_JOIN_GROUP = "workout-user-join-group",
+    USER_LEAVE_GROUP = "workout-user-leave-group",
 
+    ADD_WORKOUT_GROUP = "workout-add-group",
+    EDIT_WORKOUT_GROUP = "workout-edit-group",
+    REM_WORKOUT_GROUP = "workout-rem-group",
 
-export const REM_WORKOUT_GROUP = "workout-rem-group";
-export type RemWorkoutGroupAct = Action<string> & { id: string };
-export const remWorkoutGroup = (id: string): RemWorkoutGroupAct => ({ type: REM_WORKOUT_GROUP, id, });
+    ADD_WORKOUT = "workout-add-item",
+    EDIT_WORKOUT = "workout-edit-item",
+    REM_WORKOUT = "workout-rem-item",
 
+    EDIT_WORKOUT_SETS = "workout-edit-set",
+}
 
-export const ADD_WORKOUT_ITEM = "workout-add-item";
-export type AddWorkoutItemAct = Action<string> & { name: string, groupID: string };
-export const addWorkoutItem = (name: string, groupID: string): AddWorkoutItemAct => ({ type: ADD_WORKOUT_ITEM, name, groupID });
+export type UserJoinGroupAct = Action<WorkoutActionTypes.USER_JOIN_GROUP> & { userID: string, groupID: string };
+export type UserLeaveGroupAct = Action<WorkoutActionTypes.USER_LEAVE_GROUP> & { userID: string, groupID: string };
 
+export type AddWorkoutGroupAct = Action<WorkoutActionTypes.ADD_WORKOUT_GROUP> & { ownerID: string, groupID: string, name: string, };
+export type EditWorkoutGroupAct = Action<WorkoutActionTypes.EDIT_WORKOUT_GROUP> & { groupID: string, edits: any };
+export type RemWorkoutGroupAct = Action<WorkoutActionTypes.REM_WORKOUT_GROUP> & { groupID: string };
 
-export const REM_WORKOUT_ITEM = "workout-rem-item";
-export type RemWorkoutItemAct = Action<string> & { id: string };
-export const remWorkoutItem = (id: string): RemWorkoutItemAct => ({ type: REM_WORKOUT_ITEM, id });
+export type AddWorkoutItemAct = Action<WorkoutActionTypes.ADD_WORKOUT> & { groupID: string, workoutID: string, name: string, wType: string };
+export type EditWorkoutItemAct = Action<WorkoutActionTypes.EDIT_WORKOUT> & { groupID: string, workoutID: string, edits: any };
+export type RemWorkoutItemAct = Action<WorkoutActionTypes.REM_WORKOUT> & { groupID: string, workoutID: string };
+
+export type EditWorkoutSetsAct = Action<WorkoutActionTypes.EDIT_WORKOUT_SETS> & { groupID: string, workoutID: string, userID: string, edits: any };
+
+export const userJoinGroup = (userID: string, groupID: string): UserJoinGroupAct =>
+    ({ type: WorkoutActionTypes.USER_JOIN_GROUP, userID, groupID });
+export const userLeaveGroup = (userID: string, groupID: string): UserLeaveGroupAct =>
+    ({ type: WorkoutActionTypes.USER_LEAVE_GROUP, userID, groupID });
+
+export const addWorkoutGroup = (ownerID: string, groupID: string, name: string): AddWorkoutGroupAct =>
+    ({ type: WorkoutActionTypes.ADD_WORKOUT_GROUP, ownerID, groupID, name, });
+export const editWorkoutGroup = (groupID: string, edits: any): EditWorkoutGroupAct =>
+    ({ type: WorkoutActionTypes.EDIT_WORKOUT_GROUP, groupID, edits });
+export const remWorkoutGroup = (groupID: string): RemWorkoutGroupAct =>
+    ({ type: WorkoutActionTypes.REM_WORKOUT_GROUP, groupID, });
+
+export const addWorkoutItem = (groupID: string, workoutID: string, name: string, wType: string): AddWorkoutItemAct =>
+    ({ type: WorkoutActionTypes.ADD_WORKOUT, groupID, workoutID, name, wType });
+export const editWorkoutItem = (groupID: string, workoutID: string, edits: any): EditWorkoutItemAct =>
+    ({ type: WorkoutActionTypes.EDIT_WORKOUT, groupID, workoutID, edits });
+export const remWorkoutItem = (groupID: string, workoutID: string): RemWorkoutItemAct =>
+    ({ type: WorkoutActionTypes.REM_WORKOUT, groupID, workoutID });
+
+export const editWorkoutSets = (groupID: string, workoutID: string, userID: string, edits: any): EditWorkoutSetsAct =>
+    ({ type: WorkoutActionTypes.EDIT_WORKOUT_SETS, groupID, workoutID, userID, edits });

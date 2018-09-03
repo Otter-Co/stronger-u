@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import * as rootRed from './rootReducer';
-import * as ui from './actions/ui-actions';
+import * as ui_i from './actions/ui-actions';
+import * as workout_i from './actions/workout-actions';
 
-export default {
-    ui,
-};
+export const ui = ui_i;
+export const workout = workout_i;
+
+

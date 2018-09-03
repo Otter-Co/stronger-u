@@ -1,13 +1,12 @@
 import * as React from 'react';
-import logo from './logo.svg';
-import './app.css';
-
-import
+import './style/app.css';
+import './style/navbar.css';
+import './style/pages.css';
+import 
 {
   NavBar,
   PageContainer,
 } from './components/components';
-
 import
 {
   CoachPage,
@@ -16,11 +15,11 @@ import
   WorkoutPage
 } from './pages/pages';
 
-const testItems: [string, string][] = [
-  ["Home", "home"],
-  ["Workout", "workout"],
-  ["Logs", "logs"],
-  ["Coach", "coach"]
+const testItems: [string, string, string][] = [
+  ["Home", "fa fa-home", "home"],
+  ["Workout", "fa fa-dumbbell", "workout"],
+  ["Logs", "fa fa-calendar", "logs"],
+  ["Coach", "fa fa-id-badge", "coach"]
 ];
 
 const testPages: [string, JSX.Element][] = [

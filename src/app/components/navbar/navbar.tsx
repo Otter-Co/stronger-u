@@ -5,7 +5,7 @@ import './navbar.css';
 export interface NavBarProps<IDTYPE>
 {
     currentItem?: IDTYPE;
-    items?: [string, IDTYPE][];
+    items?: [string, string, IDTYPE][];
     onChange?: (id: IDTYPE) => void;
     disabledIDs?: IDTYPE[];
 }
@@ -23,19 +23,21 @@ export class NavBar<IDTYPE=string> extends React.Component<NavBarProps<IDTYPE>, 
         } = this.props;
 
         let rItems = items.map(i => (
-            <div
-                key={ i[1] as any }
-                className={
-                    `NavBarItem${
-                    i[1] === currentItem ? " Selected" : ""
-                    }${
-                    disabledIDs.indexOf(i[1]) > -1 ? " Disabled" : ""
-                    }`
-                }
-                onClick={ (e) => onChange(i[1]) }
-            >
-                <p>{ i[0] }</p>
-            </div>
+            <div key={ i[2] as any }>
+                <div className={ i[1] } />
+                <div
+                    className={
+                        `NavBarItem${
+                        i[2] === currentItem ? " Selected" : ""
+                        }${
+                        disabledIDs.indexOf(i[2]) > -1 ? " Disabled" : ""
+                        }`
+                    }
+                    onClick={ (e) => onChange(i[2]) }
+                >
+                    <p>{ i[0] }</p>
+                </div>
+            </div >
         ));
 
         return (

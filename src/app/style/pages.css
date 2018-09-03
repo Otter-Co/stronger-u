@@ -1,0 +1,53 @@
+ul{
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+.HomePage i.far.fa-user-circle.fa-10x{
+    color: #DD3123;
+}
+.HomePage h2{
+    font-size: 2em;
+    text-decoration: underline;
+    color: #DD3123;
+}
+.HomePage h3{
+    padding: 10px;
+    margin: 0;
+    font-size:1.8em;
+}
+.HomePage h5{
+    font-size:1.5em;
+}
+.HomePage ul{
+    padding: 0;
+}
+.HomePage ul li{
+    padding: 5px;
+    display: inline-block;
+}
+.WorkoutPage ul{
+    padding: 10px;
+}
+.WorkoutPage li{
+    background: #fbfbfb;
+    border: 1px solid #d6d7d7;
+    border-bottom-width: 0px;
+    display: block;
+    padding: 10px 20px;
+    position: relative;
+    text-align: left;
+}
+.WorkoutPage input{
+    display: block;
+}
+.WorkoutPage button{
+    display: inherit;
+}
+.WorkoutPage li:hover{
+    border: 1px solid red;
+}
+.WorkoutPage i.far.fa-check-circle{
+    float: right;
+}

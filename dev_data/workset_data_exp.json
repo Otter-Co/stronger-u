@@ -1,0 +1,26 @@
+[
+    {
+        "groupID": "group_id_1",
+        "workoutID": "workout_id_1",
+        "userID": "user_id_2",
+        
+        "weight": 405,
+        "rep": 2,
+        "set": 1,
+        "completed": false,
+        "date_completed": null,
+        "note": ""
+    },
+    {
+        "groupID": "group_id_2",
+        "workoutID": "workout_id_2",
+        "userID": "user_id_2",
+    
+        "weight": 405,
+        "rep": 2,
+        "set": 1,
+        "completed": false,
+        "date_completed": null,
+        "note": ""
+    }
+]
