@@ -1,0 +1,33 @@
+{
+  "name": "stronger-u",
+  "version": "0.0.1",
+  "description": "A codeveloped app for practice and use.",
+  "main": "bin/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Otter-Co/stronger-u.git"
+  },
+  "author": "Andre Dinh <dinh.andre@yahoo.com>",
+  "license": "LICENSE",
+  "bugs": {
+    "url": "https://github.com/Otter-Co/stronger-u/issues"
+  },
+  "homepage": "https://github.com/Otter-Co/stronger-u#readme",
+  "dependencies": {
+    "@types/react": "^16.4.13",
+    "@types/react-dom": "^16.0.7",
+    "@types/react-redux": "^6.0.6",
+    "@types/redux": "^3.6.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

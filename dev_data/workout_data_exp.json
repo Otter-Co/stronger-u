@@ -1,0 +1,16 @@
+{
+    "PowerLiftingGroup": [
+        {
+            "type": "bench",
+            "weight": 205,
+            "rep": 2,
+            "set": 3
+        },
+        {
+            "type": "facepulls",
+            "weight": "band",
+            "rep": 2,
+            "set": 3
+        }
+    ]
+}
