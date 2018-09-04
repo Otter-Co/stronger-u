@@ -7,8 +7,11 @@ import './index.css';
 import App from './app/app';
 import rootReducer from './app/state/rootReducer';
 
+import testData from './test_data/test_data';
+
 const store = createStore(
     rootReducer,
+    testData,
     compose(
         applyMiddleware(ReduxThunk),
         window["__REDUX_DEVTOOLS_EXTENSION__"] && window["__REDUX_DEVTOOLS_EXTENSION__"]()
@@ -17,7 +20,7 @@ const store = createStore(
 
 ReactDOM.render(
     (
-        <Provider store={ store }>
+        <Provider store={store}>
             <App />
         </Provider>
     ),

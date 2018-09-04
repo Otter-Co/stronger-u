@@ -2,13 +2,11 @@ import * as React from 'react';
 import './style/app.css';
 import './style/navbar.css';
 import './style/pages.css';
-import 
-{
+import {
   NavBar,
   PageContainer,
 } from './components/components';
-import
-{
+import {
   CoachPage,
   HomePage,
   LogsPage,
@@ -30,8 +28,7 @@ const testPages: [string, JSX.Element][] = [
 ];
 
 export interface AppProps { }
-export interface AppState 
-{
+export interface AppState {
   currentPage: string;
 }
 
@@ -41,8 +38,7 @@ export default class App extends React.Component<AppProps, AppState>
     currentPage: "home"
   };
 
-  render ()
-  {
+  render() {
     // let { } = this.props;
     let {
       currentPage,
@@ -51,12 +47,12 @@ export default class App extends React.Component<AppProps, AppState>
     return (
       <div className="App">
         <NavBar
-          items={ testItems }
-          onChange={ (id) => this.setState({ ...this.state, currentPage: id }) }
+          items={testItems}
+          onChange={(id) => this.setState({ ...this.state, currentPage: id })}
         />
         <PageContainer
-          currentPage={ currentPage }
-          pages={ testPages }
+          currentPage={currentPage}
+          pages={testPages}
         />
       </div>
     );
