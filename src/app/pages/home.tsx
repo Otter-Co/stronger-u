@@ -21,23 +21,24 @@ export const HomePage = connect<void, {}, {}, AppState>(
 
             return (
                 <div className={`HomePage`}>
-                    <i className="far fa-user-circle fa-10x"></i>
-                    <h2>Stronger University</h2>
-                    <h3>Welcome {currentUser.name}</h3>
-                    <p><strong>9/02/2018</strong></p>
-                    <div>
-                        <span>This is your workout for today:</span>
+                    {/* <i className="far fa-user-circle fa-10x"></i> */}
+                    <img src="../img/strengthUlogo.png" alt="Strength Unvieristy Logo"/>
+                    <div className="container">
+                        <h3>Hello {currentUser.name}, </h3>
                         <div>
-                            <strong>Powerlifting!!! </strong>
+                            <span>Workout for the week (9/02/2018): </span>
+                            <div>
+                                <strong>Powerlifting</strong>
+                            </div>
+                            <br/>
                         </div>
-
+                        <h5>Maxes</h5>
+                        <ul>
+                            <li><strong>Squats:</strong> 405lb</li>
+                            <li><strong>Bench:</strong> 265lb </li>
+                            <li><strong>Deadlift:</strong> 700lb</li>
+                        </ul>
                     </div>
-                    <h5>Strongest lifts</h5>
-                    <ul>
-                        <li><strong>Squats:</strong> 405lb</li>
-                        <li><strong>Bench:</strong> 265lb </li>
-                        <li><strong>Deadlift:</strong> 700lb</li>
-                    </ul>
                     {children}
                 </div>
             );
